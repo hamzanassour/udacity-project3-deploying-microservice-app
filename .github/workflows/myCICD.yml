@@ -16,4 +16,14 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: docker-compose -f docker-compose-build.yaml build --parallel
-    - run: 
+    - run: docker tag reverseproxy hnass/reverseproxy:v1
+    - run: docker tag udagram-api-user hnass/udagram-api-user:v1
+    - run: docker tag udagram-api-feed hnass/udagram-api-feed:v1
+    - run: docker tag reverseproxy hnass/reverseproxy:v1
+    - run: docker tag udagram-frontend:local hnass/udagram-frontend:v1
+    - run: echo "${{secret.DOCKER_PASSWORD}}" | docker login -u "${{ secret.DOCKER_USERNAME}}"
+    - run: docker push  hnass/reverseproxy:v1
+    - run: docker push  hnass/udagram-api-user:v1
+    - run: docker push  hnass/udagram-api-feed:v1
+    - run: docker push  hnass/reverseproxy:v1
+    - run: docker push  hnass/udagram-frontend:v1
